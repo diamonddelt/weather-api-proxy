@@ -49,3 +49,4 @@ TBA
 - http://www.7timer.info/doc.php?lang=en
 - https://blog.jcharistech.com/2020/11/02/how-to-create-requirements-txt-file-in-python/
 - https://docs.docker.com/language/python/build-images/
+- https://www.techiediaries.com/python-unit-tests-github-actions/
