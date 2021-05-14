@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: weather
+  template:
+    metadata:
+      labels:
+        k8s-app: weather
+      name: weather
+      namespace: default
+    spec:
+      containers:
+        - image: ryan.rasti/weather-api-proxy-image
+          imagePullPolicy: IfNotPresent
+          name: weather
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 250m
+              memory: 100M
+            requests:
+              cpu: 50m
+              memory: 30M
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 5000
+      nodePort: 30010
+  selector:
+    k8s-app: weather
